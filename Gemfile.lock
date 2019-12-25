@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/faker-ruby/faker.git
+  revision: 179ff348e3eb14cdabb17fcbad4c0f22e502a321
+  branch: master
+  specs:
+    faker (2.9.0)
+      i18n (>= 1.6, < 1.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -57,8 +65,6 @@ GEM
     factory_bot_rails (4.10.0)
       factory_bot (~> 4.10.0)
       railties (>= 3.0.0)
-    faker (1.8.7)
-      i18n (>= 0.7)
     ffi (1.11.3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -81,6 +87,15 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.13.0)
+    monetize (1.9.2)
+      money (~> 6.12)
+    money (6.13.6)
+      i18n (>= 0.6.4, <= 2)
+    money-rails (1.13.3)
+      activesupport (>= 3.0)
+      monetize (~> 1.9.0)
+      money (~> 6.13.2)
+      railties (>= 3.0)
     msgpack (1.3.1)
     nio4r (2.5.2)
     nokogiri (1.10.7)
@@ -134,9 +149,6 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
-    rubocop-rails (2.4.1)
-      rack (>= 1.1)
-      rubocop (>= 0.72.0)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
     spring (2.1.0)
@@ -166,13 +178,14 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
   factory_bot_rails
-  faker
+  faker!
   listen (>= 3.0.5, < 3.2)
+  money-rails (~> 1.12)
   pg (>= 0.18, < 2.0)
   pry-rails
   puma (~> 3.11)
   rails (~> 5.2.4, >= 5.2.4.1)
-  rubocop-rails
+  rubocop
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data

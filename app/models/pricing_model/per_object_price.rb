@@ -1,16 +1,16 @@
-class PricingModel::PerSquareFoot < PricingModel
+class PricingModel::PerObjectPrice < PricingModel
 
   def price_required?
-    false
+    true
   end
 
   def square_foot_required?
-    true
+    false
   end
 
   def calculate(client)
     client.storage_objects.map do |storage_object|
-      (storage_object.square_foot_size * percentage.to_f) / 100
+      storage_object.sum(:price) * amount_cents
     end
   end
 end
