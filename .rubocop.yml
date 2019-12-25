@@ -1,0 +1,17 @@
+# https://github.com/bbatsov/ruby-style-guide
+
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/**/*'
+    - 'log/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - 'config/**/*'
+    - 'Gemfile'
+    - 'Rakefile'
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
