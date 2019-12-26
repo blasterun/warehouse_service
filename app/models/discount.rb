@@ -2,27 +2,37 @@ class Discount < ApplicationRecord
   has_many :discount_clients
   has_many :clients, through: :discount_clients
 
-  LOGICAL_OPERATOR = "&&".freeze
-  COMPARISON_OPERATORS = ['>', '<', '>=', '<=', '==', '!='].freeze
-  ATTRIBUTE_MATCHERS = %w(object_index total_sum).freeze
+  ATTRIBUTE_MATCHERS = {
+    'object_index' => Discount::ObjectIndex,
+    'objects_sum' => Discount::ObjectsSum,
+    'objects_count' => Discount::ObjectsCount
+  }.freeze
 
-  def calculate_discount(prices_model_summary)
-    raise NotImplementedError if ATTRIBUTE_MATCHERS.exclude?(attribute_matcher)
-    if attribute_matcher == 'object_index'
-      prices_model_summary[:storage_objects] = prices_model_summary[:storage_objects].map.with_index do|item, index|
-        calculate(item, index)
-      end
-      prices_model_summary[:price_after_discounts] = prices_model_summary[:storage_objects].sum
-    elsif attribute_matcher == 'total_sum'
-      calculate(prices_model_summary[:price_after_discounts], prices_model_summary[:price_after_discounts])
-    end
+  LOGICAL_OPERATOR = '&&'.freeze
+  COMPARISON_OPERATORS = ['>', '<', '>=', '<=', '==', '!='].freeze
+
+  validates :attribute_matcher, presence: true, inclusion: { in: ATTRIBUTE_MATCHERS.keys }
+  validates :operator_from, presence: true, inclusion: { in: COMPARISON_OPERATORS }
+  validates :operator_to, inclusion: { in: COMPARISON_OPERATORS }, allow_nil: true
+  validates :quantity_from, presence: true
+  validates :quantity_to, presence: true, if: proc { |c| c.operator_to.present? }
+
+  def calculate_discount(invoice)
+    strategy.calculate_discount(invoice)
+  end
+
+  def strategy
+    @strategy ||= ATTRIBUTE_MATCHERS[attribute_matcher].new(attributes)
   end
 
   private
 
-  def calculate(price, value)
-    return price unless match_condition?(value)
+  def calculate(price:, condition:, invoice:)
+    return price unless match_condition?(condition)
+
+    invoice.discounts |= [id]
     return calculate_persantage(price) if use_persantage
+
     price - amount_cents
   end
 
@@ -31,8 +41,8 @@ class Discount < ApplicationRecord
   end
 
   def match_condition?(value)
-    base_chain = [value, operator_from , quantity_from]
-    base_chain << [LOGICAL_OPERATOR, value, operator_to , quantity_to] if operator_to.present?
+    base_chain = [value, operator_from, quantity_from]
+    base_chain << [LOGICAL_OPERATOR, value, operator_to, quantity_to] if quantity_to.present?
     eval(base_chain.flatten.join(' '))
   end
 end

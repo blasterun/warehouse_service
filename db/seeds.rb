@@ -43,3 +43,4 @@ discount3 = Discount.new(
 )
 discount3.save
 client.discounts << [discount, discount2, discount3]
+#InvoiceBuilderService.new(Client.last).build

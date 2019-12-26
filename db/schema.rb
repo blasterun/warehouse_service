@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 2019_12_25_145000) do
   end
 
   create_table "discounts", force: :cascade do |t|
-    t.string "compare_strategy"
     t.string "attribute_matcher"
     t.integer "amount_cents"
     t.decimal "percentage", precision: 4, scale: 2
