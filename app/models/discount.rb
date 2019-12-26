@@ -1,7 +1,4 @@
 class Discount < ApplicationRecord
-  has_many :discount_clients
-  has_many :clients, through: :discount_clients
-
   ATTRIBUTE_MATCHERS = {
     'object_index' => Discount::ObjectIndex,
     'objects_sum' => Discount::ObjectsSum,
@@ -11,11 +8,18 @@ class Discount < ApplicationRecord
   LOGICAL_OPERATOR = '&&'.freeze
   COMPARISON_OPERATORS = ['>', '<', '>=', '<=', '==', '!='].freeze
 
+  has_many :discount_clients
+  has_many :clients, through: :discount_clients
+
+  validates :amount_cents, presence: true, if: proc { |c| c.use_persantage == false }
+  validates :percentage, presence: true, if: proc { |c| c.use_persantage }
   validates :attribute_matcher, presence: true, inclusion: { in: ATTRIBUTE_MATCHERS.keys }
-  validates :operator_from, presence: true, inclusion: { in: COMPARISON_OPERATORS }
+  validates :operator_from, presence: true, inclusion: { in: COMPARISON_OPERATORS }, allow_nil: true
   validates :operator_to, inclusion: { in: COMPARISON_OPERATORS }, allow_nil: true
-  validates :quantity_from, presence: true
-  validates :quantity_to, presence: true, if: proc { |c| c.operator_to.present? }
+  validates :quantity_from, presence: true, if: proc { |c| c.operator_from.present? }
+  validates :quantity_to, presence: true, if: proc { |c|
+    c.operator_to.present? && c.operator_from.present?
+  }
 
   def calculate_discount(invoice)
     strategy.calculate_discount(invoice)

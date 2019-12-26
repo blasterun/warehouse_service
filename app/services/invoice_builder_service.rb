@@ -21,6 +21,7 @@ class InvoiceBuilderService
   def calculate_pricing_model
     self.priced_objects                 = client.pricing_model.calculate(client)
     self.price_before_discount          = priced_objects.sum
+    self.price                          = price_before_discount
   end
 
   def calculate_discounts
@@ -32,7 +33,7 @@ class InvoiceBuilderService
   def summary
     {
       price_before_discount: price_before_discount,
-      price: price,
+      price: price.to_i,
       discounts: discounts
     }
   end

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # root to: 'wellcome#index'
 
   namespace :api, defaults: { format: :json } do
-    resources :payment_models, only: %i(index)
+    resources :pricing_models, only: %i(index create)
     # put '/card', to: 'cards#update'
 
     namespace :admin do
@@ -26,7 +26,7 @@ end
 #   PaymentModel.new(type: 'per_square_foot', amount: 2, currency: 'usd')
 #   Discount.new(type: 'storage_object_inclusion', amount: 5, amount_type: 'persantage', quantitly_type: 'inclusion', quantity: 1, quantity: 100) # first 100
 #   Discount.new(type: 'items_range', amount: 10, amount_type: 'persantage', quantitly_type: 'inclusion', quantity: 101,  quantity: 200) # first 100 more than or less then?s
-#   Discount.new(type: 'items_range', amount: 15, amount_type: 'persantage', quantitly_type: 'inclusion_more_than', quantity: 200) # if static 
+#   Discount.new(type: 'items_range', amount: 15, amount_type: 'persantage', quantitly_type: 'inclusion_more_than', quantity: 200) # if static
 #   # lets try make dynamic here
 
 # Bonus)
@@ -70,4 +70,3 @@ end
 #   weight:
 #   sqare_size:
 #   expected_price:
-

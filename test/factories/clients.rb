@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :client do
-    name "MyString"
-    pricing_model_id 1
+    name Faker::Name.name
+    pricing_model
   end
 end

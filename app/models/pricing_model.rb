@@ -27,4 +27,8 @@ class PricingModel < ApplicationRecord
   def strategy
     @strategy ||= PRICING_STRATEGIES[pricing_strategy].find(id)
   end
+
+  def as_json(options={})
+    super({ only: %i[id pricing_strategy amount_cents percentage use_persantage] }.merge(options || {}))
+  end
 end

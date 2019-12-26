@@ -1,10 +1,12 @@
 FactoryBot.define do
   factory :discount do
-    discounting_strategy "MyString"
-    amount_cents 1
-    percentage "9.99"
-    quantity_from 1
-    quantity_to 1
-    use_persantage false
+    attribute_matcher "objects_sum"
+    amount_cents nil
+    percentage 10.0
+    operator_from nil
+    operator_to nil
+    quantity_from nil
+    quantity_to nil
+    use_persantage true
   end
 end

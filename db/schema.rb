@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2019_12_25_145000) do
     t.integer "pricing_model_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["pricing_model_id"], name: "index_clients_on_pricing_model_id"
   end
 
   create_table "discount_clients", force: :cascade do |t|
