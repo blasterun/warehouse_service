@@ -39,8 +39,8 @@ discount3 = Discount.new(
   percentage: 15,
   use_persantage: true,
   operator_from: '>',
-  quantity_from: 200,
+  quantity_from: 200
 )
 discount3.save
 client.discounts << [discount, discount2, discount3]
-#InvoiceBuilderService.new(Client.last).build
+# InvoiceBuilderService.new(Client.last).build

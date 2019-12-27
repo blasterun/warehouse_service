@@ -1,7 +1,5 @@
 module Api
   class PricingModelsController < ApplicationController
-    #before_action :find_pricing_model, except: [:index]
-
     def index
       render json: PricingModel.all.to_json
     end
@@ -14,10 +12,6 @@ module Api
         render json: pricing_model.errors.full_messages, status: :bad_request
       end
     end
-
-    # def find_pricing_model
-    #   @contact = Contact.with_deleted.find(params[:id])
-    # end
 
     def pricing_model_params
       params.require(:pricing_model).permit(
