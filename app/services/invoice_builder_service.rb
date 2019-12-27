@@ -34,7 +34,8 @@ class InvoiceBuilderService
     {
       price_before_discount: price_before_discount,
       price: price.to_i,
-      discounts: discounts
+      discounts: discounts,
+      priced_objects: priced_objects
     }
   end
 end
