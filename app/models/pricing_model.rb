@@ -12,14 +12,6 @@ class PricingModel < ApplicationRecord
   #validates :amount_cents#, presence: treu#, unless { percentage }
   #validates :percentage#, presence: true #, if { strategy.price_required? }
 
-  def price_required?
-    strategy.price_required?
-  end
-
-  def square_foot_required?
-    strategy.square_foot_required?
-  end
-
   def calculate(client)
     strategy.calculate(client)
   end

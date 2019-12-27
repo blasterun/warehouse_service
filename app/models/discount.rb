@@ -26,7 +26,7 @@ class Discount < ApplicationRecord
   end
 
   def strategy
-    @strategy ||= ATTRIBUTE_MATCHERS[attribute_matcher].new(attributes)
+    @strategy ||= ATTRIBUTE_MATCHERS[attribute_matcher].find(id)
   end
 
   private
