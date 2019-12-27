@@ -8,7 +8,7 @@ class Discount < ApplicationRecord
   LOGICAL_OPERATOR = '&&'.freeze
   COMPARISON_OPERATORS = ['>', '<', '>=', '<=', '==', '!='].freeze
 
-  has_many :discount_clients
+  has_many :discount_clients, dependent: :destroy
   has_many :clients, through: :discount_clients
 
   validates :amount_cents, presence: true, if: proc { |c| c.use_persantage == false }
@@ -27,6 +27,15 @@ class Discount < ApplicationRecord
 
   def strategy
     @strategy ||= ATTRIBUTE_MATCHERS[attribute_matcher].find(id)
+  end
+
+  def as_json(options={})
+    super({
+      only: %i[
+        id attribute_matcher amount_cents percentage use_persantage
+        operator_from operator_to quantity_from quantity_to
+      ]
+    }.merge(options || {}))
   end
 
   private

@@ -9,8 +9,8 @@ class PricingModel < ApplicationRecord
   has_many :clients
 
   validates :pricing_strategy, presence: true, inclusion: { in: PRICING_STRATEGIES.keys }
-  #validates :amount_cents#, presence: treu#, unless { percentage }
-  #validates :percentage#, presence: true #, if { strategy.price_required? }
+  validates :amount_cents, presence: true, if: proc { |c| c.use_persantage == false }
+  validates :percentage, presence: true, if: proc { |c| c.use_persantage }
 
   def calculate(client)
     strategy.calculate(client)

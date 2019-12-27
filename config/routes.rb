@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   namespace :api, defaults: { format: :json } do
-    resources :pricing_models, only: %i(index create)
+    resources :pricing_models
     resources :discounts
 
     resources :clients do

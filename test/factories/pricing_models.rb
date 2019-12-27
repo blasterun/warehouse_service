@@ -4,5 +4,9 @@ FactoryBot.define do
     amount_cents 20_00
     percentage nil
     use_persantage false
+
+    factory :pricing_model_not_valid do
+      pricing_strategy nil
+    end
   end
 end

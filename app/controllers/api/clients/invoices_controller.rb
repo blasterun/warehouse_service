@@ -1,8 +1,9 @@
 module Api
   module Clients
-    class InvoicesController < ApplicationController
+    class InvoicesController < BaseClientsController
+      before_action :find_client
+
       def index
-        @client = Client.find(params[:client_id])
         render json: InvoiceBuilderService.new(@client).build
       end
     end

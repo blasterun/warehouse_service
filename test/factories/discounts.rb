@@ -2,12 +2,16 @@ FactoryBot.define do
   factory :discount do
     attribute_matcher "objects_sum"
     amount_cents nil
-    percentage 10.0
+    percentage "10.0"
     operator_from nil
     operator_to nil
     quantity_from nil
     quantity_to nil
     use_persantage true
+
+    factory :discount_not_valid do
+      attribute_matcher nil
+    end
 
     factory :first_100_objects_5_persent_discount do
       attribute_matcher 'object_index'

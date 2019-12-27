@@ -8,7 +8,7 @@ module Api
       end
 
       def create
-        discount = DiscountClient.new(discount_client)
+        discount = @client.discount_clients.new(discount_client_params)
         if discount.save
           render json: discount.to_json, status: :created
         else
@@ -19,7 +19,7 @@ module Api
       def destroy
         discount = @client.discount_clients.find_by(discount_id: params[:id])
         if discount.destroy
-          render json: discount.to_json, status: :created
+          render json: discount.to_json, status: :ok
         else
           render json: discount.errors.full_messages, status: :bad_request
         end
@@ -28,7 +28,7 @@ module Api
       private
 
       def discount_client_params
-        params.require(:discount_client).permit(:discount_id, :client_id)
+        params.require(:discount_client).permit(:discount_id)
       end
     end
   end
