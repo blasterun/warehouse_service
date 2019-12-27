@@ -1,8 +1,8 @@
 module Api
   module Clients
-    class StorageObjectsController < BaseClientsController
+    class StorageObjectsController < Api::BaseClientsController
       before_action :find_client
-      before_action :find_storage_objects, except: %i[index create]
+      before_action :find_storate_object, except: %i[index create]
 
       def index
         render json: @client.storage_objects.to_json
@@ -13,7 +13,7 @@ module Api
       end
 
       def create
-        storage_object = @client.storage_items.new(storage_object_params)
+        storage_object = @client.storage_objects.new(storage_object_params)
         if storage_object.save
           render json: storage_object.to_json, status: :created
         else
@@ -43,7 +43,7 @@ module Api
         params.require(:storage_object).permit(:name, :price_cents, :square_foot_size)
       end
 
-      def find_storate_item
+      def find_storate_object
         @storage_objects = @client.storage_objects.find(params[:id])
       end
     end

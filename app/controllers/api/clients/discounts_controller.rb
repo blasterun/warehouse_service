@@ -1,6 +1,6 @@
 module Api
   module Clients
-    class DiscountsController < BaseClientsController
+    class DiscountsController < Api::BaseClientsController
       before_action :find_client
 
       def index

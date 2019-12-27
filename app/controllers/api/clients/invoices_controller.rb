@@ -1,6 +1,6 @@
 module Api
   module Clients
-    class InvoicesController < BaseClientsController
+    class InvoicesController < Api::BaseClientsController
       before_action :find_client
 
       def index

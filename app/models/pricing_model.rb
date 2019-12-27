@@ -1,5 +1,4 @@
 class PricingModel < ApplicationRecord
-
   PRICING_STRATEGIES = {
     'per_object' => PricingModel::PerObject,
     'per_square_foot' => PricingModel::PerSquareFoot,
@@ -20,7 +19,7 @@ class PricingModel < ApplicationRecord
     @strategy ||= PRICING_STRATEGIES[pricing_strategy].find(id)
   end
 
-  def as_json(options={})
+  def as_json(options = {})
     super({ only: %i[id pricing_strategy amount_cents percentage use_persantage] }.merge(options || {}))
   end
 end

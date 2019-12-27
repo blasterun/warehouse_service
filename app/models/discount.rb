@@ -29,7 +29,7 @@ class Discount < ApplicationRecord
     @strategy ||= ATTRIBUTE_MATCHERS[attribute_matcher].find(id)
   end
 
-  def as_json(options={})
+  def as_json(options = {})
     super({
       only: %i[
         id attribute_matcher amount_cents percentage use_persantage

@@ -4,6 +4,7 @@ AllCops:
   TargetRubyVersion: 2.3
   Exclude:
     - 'db/schema.rb'
+    - 'db/migrate/*'
     - 'bin/**/*'
     - 'log/**/*'
     - 'tmp/**/*'
@@ -12,6 +13,7 @@ AllCops:
     - 'Gemfile'
     - 'Rakefile'
     - 'test/factories/**/*'
+    - 'test/test_helper.rb'
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/Documentation:

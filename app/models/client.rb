@@ -6,7 +6,7 @@ class Client < ApplicationRecord
 
   validates :pricing_model, :name, presence: true
 
-  def as_json(options={})
+  def as_json(options = {})
     super({ only: %i[id pricing_model name] }.merge(options || {}))
   end
 end
